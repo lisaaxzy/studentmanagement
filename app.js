@@ -104,7 +104,18 @@ app.get('/students/search', (req, res) => {
  });
 
 
+app.post('/students/delete/:id', (req, res) => {
+  const studentId = req.params.id;
+  const sql = 'DELETE FROM students WHERE id = ?';
 
+  db.query(sql, [studentId], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Unable to delete student');
+    }
+    res.redirect('/');
+  });
+});
 
 
 
